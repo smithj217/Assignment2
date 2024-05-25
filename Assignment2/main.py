@@ -178,3 +178,24 @@ if __name__ == '__main__':
     print(discounted_cumulative_gain_df)
     print("Test stats of discounted cumulative gain: \n")
     compare_df_ttest(discounted_cumulative_gain_df)
+
+    def plot_line_chart(df, title):
+        plt.figure(figsize=(10, 6))
+        # Exclude the 'MAP' or 'Average' row
+        df_numeric = df.drop(['MAP', 'Average'], errors='ignore')
+        for column in df_numeric.columns:
+            plt.plot(df_numeric.index, df_numeric[column], label=column)
+
+        plt.title(title)
+        plt.xlabel('Collection')
+        plt.ylabel('Scores')
+        plt.legend()
+        plt.grid(True)
+        plt.xticks(rotation=90)
+        plt.show()
+
+
+    # Plots
+    plot_line_chart(average_precision_df, 'Average Precision')
+    plot_line_chart(precision_at_10_df, 'Precision @ 10')
+    plot_line_chart(discounted_cumulative_gain_df, 'Discounted Cumulative Gain')
